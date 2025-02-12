@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>专属祝福查询</title>
+    <title>专属祝福</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         body { font-family: Arial, sans-serif; max-width: 600px; margin: 20px auto; padding: 20px; }
@@ -10,9 +10,9 @@
     </style>
 </head>
 <body>
-    <h2>🎉 专属祝福查询</h2>
+    <h2>🎉 我的朋友，元宵节快乐</h2>
     <input type="text" id="name" placeholder="请输入您的姓名">
-    <button onclick="getBlessing()">查询祝福</button>
+    <button onclick="getBlessing()">领取我的专属祝福</button>
     <div id="result"></div>
 
     <script>
@@ -32,7 +32,7 @@
                 resultDiv.innerHTML = blessings[name];
                 resultDiv.style.color = '#27ae60';
             } else {
-                resultDiv.innerHTML = "😊 亲爱的" + name + "，祝你天天好心情！";
+                resultDiv.innerHTML = "😊 亲爱的" + name + "，祝你元宵节快乐！";
                 resultDiv.style.color = '#e74c3c';
             }
         }
