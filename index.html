@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>专属祝福查询</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 600px; margin: 20px auto; padding: 20px; }
+        input, button { padding: 10px; margin: 5px; width: 80%; }
+        #result { margin-top: 20px; color: #2c3e50; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h2>🎉 专属祝福查询</h2>
+    <input type="text" id="name" placeholder="请输入您的姓名">
+    <button onclick="getBlessing()">查询祝福</button>
+    <div id="result"></div>
+
+    <script>
+        // 祝福语配置（可自行修改）
+        const blessings = {
+            "小红": "🎊 小红，祝你新年快乐，心想事成！",
+            "小兰": "🏮 小兰，元宵节快乐，团团圆圆！",
+            "张三": "🎂 张三，生日快乐，幸福安康！",
+            "李四": "🌟 李四，天天开心，万事如意！"
+        };
+
+        function getBlessing() {
+            const name = document.getElementById('name').value.trim();
+            const resultDiv = document.getElementById('result');
+            
+            if (name in blessings) {
+                resultDiv.innerHTML = blessings[name];
+                resultDiv.style.color = '#27ae60';
+            } else {
+                resultDiv.innerHTML = "😊 亲爱的" + name + "，祝你天天好心情！";
+                resultDiv.style.color = '#e74c3c';
+            }
+        }
+    </script>
+</body>
+</html>
