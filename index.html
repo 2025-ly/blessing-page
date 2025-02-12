@@ -1,39 +1,134 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>专属祝福</title>
+    <title>惊喜祝福</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-        body { font-family: Arial, sans-serif; max-width: 600px; margin: 20px auto; padding: 20px; }
-        input, button { padding: 10px; margin: 5px; width: 80%; }
-        #result { margin-top: 20px; color: #2c3e50; font-weight: bold; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #000;
+            overflow: hidden;
+            font-family: '微软雅黑', cursive;
+        }
+
+        .container {
+            position: fixed;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.9);
+            transition: 0.5s;
+            z-index: 2;
+        }
+
+        .hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        input, button {
+            padding: 15px 25px;
+            margin: 10px;
+            border-radius: 30px;
+            border: 2px solid #fff;
+            background: transparent;
+            color: #fff;
+            font-size: 18px;
+            text-align: center;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        button {
+            background: #e74c3c;
+            cursor: pointer;
+        }
+
+        button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px #e74c3c;
+        }
+
+        .blessing {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #fff;
+            font-size: 3em;
+            text-align: center;
+            text-shadow: 0 0 10px #fff;
+            z-index: 1;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .firework {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            animation: explode 1.5s ease-out forwards;
+        }
+
+        @keyframes explode {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(15); opacity: 0; }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(-50%, -50%) translateY(0); }
+            50% { transform: translate(-50%, -50%) translateY(-20px); }
+        }
     </style>
 </head>
 <body>
-    <h2>🎉 我的朋友，元宵节快乐</h2>
-    <input type="text" id="name" placeholder="请输入您的姓名">
-    <button onclick="getBlessing()">领取我的专属祝福</button>
-    <div id="result"></div>
+    <div class="container">
+        <input type="text" id="name" placeholder="输入名字领取专属祝福">
+        <button onclick="showBlessing()">开启祝福</button>
+    </div>
+    <div id="blessingText" class="blessing"></div>
 
     <script>
-        // 祝福语配置（可自行修改）
         const blessings = {
-            "小红": "🎊 小红，祝你新年快乐，心想事成！",
-            "小兰": "🏮 小兰，元宵节快乐，团团圆圆！",
-            "张三": "🎂 张三，生日快乐，幸福安康！",
-            "李四": "🌟 李四，天天开心，万事如意！"
+            "小红": "🧨 新年快乐！愿幸福常伴左右",
+            "小兰": "🏮 元宵安康！团团圆圆万事兴",
+            "默认": "🎇 愿你岁岁常欢愉，年年皆胜意！"
         };
 
-        function getBlessing() {
+        function showBlessing() {
             const name = document.getElementById('name').value.trim();
-            const resultDiv = document.getElementById('result');
+            const container = document.querySelector('.container');
+            const blessingText = document.getElementById('blessingText');
             
-            if (name in blessings) {
-                resultDiv.innerHTML = blessings[name];
-                resultDiv.style.color = '#27ae60';
-            } else {
-                resultDiv.innerHTML = "😊 亲爱的" + name + "，祝你元宵节快乐！";
-                resultDiv.style.color = '#e74c3c';
+            // 显示祝福语
+            blessingText.innerHTML = blessings[name] || blessings['默认'];
+            container.classList.add('hidden');
+
+            // 开始烟花动画
+            createFireworks();
+            setInterval(createFireworks, 500);
+        }
+
+        function createFireworks() {
+            for(let i = 0; i < 15; i++) {
+                const firework = document.createElement('div');
+                firework.className = 'firework';
+                firework.style.left = Math.random() * 100 + 'vw';
+                firework.style.top = Math.random() * 100 + 'vh';
+                firework.style.background = `hsl(${Math.random()*360}, 100%, 50%)`;
+                firework.style.animationDelay = Math.random() * 1 + 's';
+                document.body.appendChild(firework);
+
+                // 自动移除元素
+                setTimeout(() => firework.remove(), 1500);
             }
         }
     </script>
